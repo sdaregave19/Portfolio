@@ -2,9 +2,14 @@ const clock = document.querySelector('#clock');
 const setClock = () => { clock.textContent = new Intl.DateTimeFormat('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' }).format(new Date()); };
 setClock(); setInterval(setClock, 1000);
 
-const terminal = document.querySelector('#terminal');
-document.querySelector('#terminal-trigger').addEventListener('click', () => terminal.showModal());
-document.querySelector('#terminal-close').addEventListener('click', () => terminal.close());
+const root = document.documentElement;
+const modeToggle = document.querySelector('.mode-toggle');
+modeToggle.addEventListener('click', () => {
+  const isLight = root.getAttribute('data-theme') === 'light';
+  root.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  modeToggle.querySelector('span').textContent = isLight ? '◐' : '◑';
+});
+
 document.querySelector('#back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
 const links = [...document.querySelectorAll('.bottom-nav a')];
